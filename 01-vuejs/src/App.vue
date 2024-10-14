@@ -1,8 +1,7 @@
 <script setup>
-import FirstPage from '@/components/FirstPage.vue'
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 </script>
 
 <template>
-  <FirstPage />
+  <DefaultLayout />
 </template>
-
