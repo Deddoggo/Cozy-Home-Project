@@ -1,8 +1,8 @@
 <template>
   <header
-    class="flex justify-between items-center bg-white h-[100px] px-[30px]"
+    class="flex justify-between items-center bg-white h-[60px] md:h-[100px] px-[30px]"
   >
-    <FurniroLogo />
+    <FurniroLogo class="w-[100px] md:w-[140px]" />
     <nav class="hidden md:flex space-x-[30px] lg:space-x-[60px]">
       <a
         href="#"
@@ -52,14 +52,25 @@
         />
       </a>
     </div>
-    <button class="md:hidden">
-      <Icon class="text-back text-[28px]" icon="mdi:menu" />
+    <button
+      class="md:hidden rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      @click="toogleDrawer"
+    >
+      <Icon class="text-back text-[20px]" icon="mdi:menu" />
     </button>
   </header>
+  <DrawerHeader />
 </template>
 
-<script setup>
-// Add any necessary script logic here
+<script lang="ts" setup>
 import FurniroLogo from "@/components/common/FurniroLogo.vue";
 import { Icon } from "@iconify/vue";
+import DrawerHeader from "./DrawerHeader.vue";
+import { useAppStore } from "@/stores/appStore";
+
+const appStore = useAppStore();
+
+const toogleDrawer = () => {
+  appStore.toogleDrawer();
+};
 </script>
