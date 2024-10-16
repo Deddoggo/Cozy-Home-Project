@@ -7,8 +7,11 @@ export const useAppStore = defineStore("appStore", {
     };
   },
   actions: {
-    toogleDrawer() {
+    toggleDrawer() {
       this.isShowDrawer = !this.isShowDrawer;
+    },
+    hiddenDrawer() {
+      this.isShowDrawer = false;
     },
   },
 });

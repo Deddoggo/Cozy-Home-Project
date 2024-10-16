@@ -1,7 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+:root {
+  --color-primary: "#B88E2F";
+  --color-secondary: "#FAF3EA";
+  --color-black: "#333333";
+  --color-white: "#FFFFFF";
+  --color-background: "#F4F5F7";
+  --color-gray: "#898989";
+  --color-gray-light: "#B0B0B0";
+  --color-red: "#E97171";
+  --color-green: "#2EC1AC";
+}
+
 #app {
   font-family: "Poppins", sans-serif;
   max-width: 1440px;
   margin: auto;
+  color: var(--color-black);
 }
