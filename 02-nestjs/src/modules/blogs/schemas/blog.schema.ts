@@ -2,23 +2,29 @@ import { User } from '@/modules/users/schemas/user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
-export type OrderDocument = HydratedDocument<Order>;
+export type BlogDocument = HydratedDocument<Blog>;
 
 @Schema({ timestamps: true })
-export class Order {
+export class Blog {
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
-    user: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Schema.Types.ObjectId;
 
     @Prop()
-    deliveryStatus: string;
+    title: string;
 
     @Prop()
-    orderTime: Date;
+    content: string;
 
     @Prop()
-    deliveryTime: Date;
+    image: string;
+
+    @Prop()
+    category: string;
+
+    @Prop()
+    tags: string[];
 
 }
 
-export const OrderSchema = SchemaFactory.createForClass(Order);
+export const BlogSchema = SchemaFactory.createForClass(Blog);

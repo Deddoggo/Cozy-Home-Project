@@ -1,5 +1,4 @@
-
-import { Restaurant } from '@/modules/restaurants/schemas/restaurant.schema';
+import { ShopItem } from '@/modules/shop.items/schemas/shop.item.schema';
 import { User } from '@/modules/users/schemas/user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
@@ -12,9 +11,6 @@ export class Review {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
     user: mongoose.Schema.Types.ObjectId;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Restaurant.name })
-    restaurant: mongoose.Schema.Types.ObjectId;
-
     @Prop()
     rating: number;
 
@@ -23,6 +19,9 @@ export class Review {
 
     @Prop()
     comment: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: ShopItem.name })
+    shopItem: mongoose.Schema.Types.ObjectId;
 
 }
 
