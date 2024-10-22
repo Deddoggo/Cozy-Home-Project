@@ -3,7 +3,7 @@ import { ShopItemsService } from './shop.items.service';
 import { CreateShopItemDto } from './dto/create-shop.item.dto';
 import { UpdateShopItemDto } from './dto/update-shop.item.dto';
 
-@Controller('shop.items')
+@Controller('shop-items')  // Updated URL to be consistent
 export class ShopItemsController {
   constructor(private readonly shopItemsService: ShopItemsService) {}
 
@@ -13,22 +13,22 @@ export class ShopItemsController {
   }
 
   @Get()
-  findAll() {
-    return this.shopItemsService.findAll();
+  async findAll() {
+    return await this.shopItemsService.findAll();  // Return all shop items
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shopItemsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.shopItemsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateShopItemDto: UpdateShopItemDto) {
-    return this.shopItemsService.update(+id, updateShopItemDto);
+  async update(@Param('id') id: string, @Body() updateShopItemDto: UpdateShopItemDto) {
+    return await this.shopItemsService.update(+id, updateShopItemDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.shopItemsService.remove(+id);
-  }
+@Delete(':id')
+async remove(@Param('id') id: string) {
+  return await this.shopItemsService.remove(id); 
+}
 }

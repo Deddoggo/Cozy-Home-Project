@@ -1,5 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Banner from '@/components/home-pages/Banner.vue';
+import BrowseTheRange from '@/components/home-pages/BrowseTheRange.vue';
+import Products from '@/components/home-pages/Products.vue';
+import RoomsInspiration from '@/components/home-pages/RoomsInspiration.vue';
+</script>
 
 <template>
-  <main class="h-[1999px]">MINHBCSSSSS</main>
+  <Banner />
+  <BrowseTheRange />
+  <Products />
+  <RoomsInspiration/>
 </template>

@@ -14,6 +14,7 @@ import { ShopItemsModule } from '@/modules/shop.items/shop.items.module';
 import { ShopItemsDetailsModule } from '@/modules/shop.items.details/shop.items.details.module';
 import { CartItemsModule } from '@/modules/cart.items/cart.items.module';
 import { CategoriesModule } from '@/modules/categories/categories.module';
+import { AuthModule } from '@/auth/auth.module';
 
 
 @Module({
@@ -35,6 +36,7 @@ import { CategoriesModule } from '@/modules/categories/categories.module';
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

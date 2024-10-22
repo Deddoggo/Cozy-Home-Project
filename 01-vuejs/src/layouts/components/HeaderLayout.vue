@@ -5,7 +5,7 @@
     <div
       class="flex justify-between items-center px-[30px] h-[60px] md:h-[100px]"
     >
-      <LogoSvg
+      <FurniroLogo
         class="w-[100px] md:w-[140px]"
         @click="redirectTo(ROUTERS.HOME)"
       />
@@ -45,7 +45,7 @@
       >
         <div class="relative bg-white w-full h-full">
           <div class="flex justify-between items-center px-[30px] h-[60px]">
-            <LogoSvg class="w-[100px] md:w-[140px]" />
+            <FurniroLogo class="w-[100px] md:w-[140px]" />
             <button
               class="md:hidden rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
               @click="toggleDrawer"
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-import LogoSvg from "@/components/common/LogoSvg.vue";
+import FurniroLogo from "@/components/common/FurniroLogo.vue";
 import { Icon } from "@iconify/vue";
 import { computed } from "vue";
 import { useAppStore } from "@/stores/appStore";
