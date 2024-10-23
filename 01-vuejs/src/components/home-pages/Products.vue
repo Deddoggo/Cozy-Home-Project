@@ -48,11 +48,11 @@ onMounted(() => {
 
     <div v-else>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="product in visibleProducts" :key="product._id" class="product-card p-4 border rounded-lg shadow-md">
+        <div v-for="product in visibleProducts" :key="product._id" class="product-card p-4 rounded-lg bg-background">
           <img 
             :src="product.image" 
             :alt="product.title" 
-            class="w-full h-48 object-cover mb-4 rounded-lg" 
+            class="w-full h-48 object-cover mb-4" 
           />
           <h3 class="text-xl font-medium">{{ product.title }}</h3>
           <p class="text-gray-500 mb-2">{{ product.description }}</p>

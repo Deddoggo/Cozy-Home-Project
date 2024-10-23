@@ -9,22 +9,22 @@
       Loading categories...
     </div>
 
-<swiper 
-  v-if="!isLoading" 
-  :slides-per-view="4" 
-  :space-between="20" 
-  pagination 
-  class="mySwiper"
->
+    <swiper 
+      v-if="!isLoading" 
+      :slides-per-view="3" 
+      :space-between="20" 
+      pagination 
+      class="mySwiper"
+    >
       <swiper-slide 
         v-for="category in categories" 
         :key="category._id" 
-        class="category-card p-4 border rounded-lg shadow-md"
+        class="category-card p-4"
       >
         <img 
           :src="category.image" 
           :alt="category.title" 
-          class="w-full h-48 object-cover mb-4 rounded-lg" 
+          class="w-full h-60 object-cover mb-4 rounded-lg" 
         />
         <h3 class="text-xl font-medium text-center">{{ category.title }}</h3>
       </swiper-slide>
@@ -34,6 +34,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 
@@ -49,9 +50,8 @@ const isLoading = ref(true);
 
 const fetchCategories = async () => {
   try {
-    const response = await fetch('http://localhost:8080/api/v1/categories');
-    const data = await response.json();
-    categories.value = data;
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/categories`);
+    categories.value = response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
   } finally {
@@ -68,7 +68,9 @@ onMounted(() => {
 .category-card img {
   transition: transform 0.3s;
 }
+
 .category-card img:hover {
   transform: scale(1.05);
 }
+
 </style>
