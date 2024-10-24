@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { ShopItem, ShopItemDocument } from '@/modules/shop.items/schemas/shop.item.schema';
 import { CreateShopItemDto } from './dto/create-shop.item.dto';
 import { UpdateShopItemDto } from './dto/update-shop.item.dto';
+import aqp from 'api-query-params';
 
 @Injectable()
 export class ShopItemsService {
@@ -18,8 +19,32 @@ export class ShopItemsService {
   }
 
   // Find all shop items
-  async findAll(): Promise<ShopItem[]> {
-    return this.shopItemModel.find().exec(); // Returns all shop items from the database
+
+  async findAll(query: string, current: number, pageSize: number) {
+    const { filter, limit, sort } = aqp(query);
+
+    if (filter.current) delete filter.current;
+    if (filter.pageSize) delete filter.pageSize;
+
+    if (!current) {
+      current = 1;
+    }
+    if (!pageSize) {
+      pageSize = 10;
+    }
+
+    const totalItems = (await this.shopItemModel.find(filter)).length;
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    const skip = (current - 1) * pageSize;
+
+    const results = await this.shopItemModel
+      .find(filter)
+      .limit(pageSize)
+      .skip(skip)
+      .sort(sort as any);
+
+    return { results, totalPages };
   }
 
   // Find one shop item by ID

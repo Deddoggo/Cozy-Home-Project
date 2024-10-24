@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ShopItemsService } from './shop.items.service';
 import { CreateShopItemDto } from './dto/create-shop.item.dto';
 import { UpdateShopItemDto } from './dto/update-shop.item.dto';
@@ -13,8 +13,12 @@ export class ShopItemsController {
   }
 
   @Get()
-  async findAll() {
-    return await this.shopItemsService.findAll();  // Return all shop items
+  async findAll(
+    @Query() query: string,
+    @Query("current") current: string,
+    @Query("pageSize") pageSize: string,
+  ) {
+    return await this.shopItemsService.findAll(query, +current, +pageSize);  // Return all shop items
   }
 
   @Get(':id')
