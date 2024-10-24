@@ -24,7 +24,7 @@
         <img 
           :src="category.image" 
           :alt="category.title" 
-          class="w-full h-60 object-cover mb-4 rounded-lg" 
+          class="w-full h-60 object-cover mb-4 rounded-lg transition-transform duration-300 hover:scale-105" 
         />
         <h3 class="text-xl font-medium text-center">{{ category.title }}</h3>
       </swiper-slide>
@@ -63,14 +63,3 @@ onMounted(() => {
   fetchCategories();
 });
 </script>
-
-<style scoped>
-.category-card img {
-  transition: transform 0.3s;
-}
-
-.category-card img:hover {
-  transform: scale(1.05);
-}
-
-</style>
