@@ -20,7 +20,8 @@
     "pinia": "2.2.4",
     "swiper": "11.1.14",
     "vue": "3.5.12",
-    "vue-router": "4.4.5"
+    "vue-router": "4.4.5",
+    "vue-split-view": "^1.0.0"
   },
   "devDependencies": {
     "@iconify/vue": "4.1.2",

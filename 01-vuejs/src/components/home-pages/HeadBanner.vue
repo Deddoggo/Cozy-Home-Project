@@ -4,29 +4,9 @@ import NewArrival from './NewArrival.vue';
 </script>
 
 <template>
-  <div class="image-container">
-    <img :src="myImage" alt="Product Image" class="product-image">
-    
+  <div class="relative w-full pb-[49.25%] overflow-hidden">
+    <img :src="myImage" alt="Product Image" class="absolute top-0 left-0 w-full h-full object-cover">
     <NewArrival/>
   </div>
+  
 </template>
-
-<style scoped>
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 49.25%;
-  overflow: hidden;
-}
-
-.product-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-</style>

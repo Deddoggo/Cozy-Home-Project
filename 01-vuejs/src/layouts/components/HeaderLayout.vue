@@ -106,7 +106,7 @@ const router = useRouter();
 const route = useRoute();
 
 const activeRoute = (url: string) => {
-  return route.path.includes(url);
+  return route.path === url;
 };
 
 const toggleDrawer = () => {

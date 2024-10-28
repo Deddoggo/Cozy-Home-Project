@@ -16,12 +16,4 @@
   </div>
 </template>
 
-<script setup>
-</script>
 
-<style scoped>
-.bg-cover {
-  background-size: cover;
-  background-position: center;
-}
-</style>

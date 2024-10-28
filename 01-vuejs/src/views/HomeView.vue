@@ -3,6 +3,7 @@ import HeadBanner from '@/components/home-pages/HeadBanner.vue';
 import BrowseTheRange from '@/components/home-pages/BrowseTheRange.vue';
 import Products from '@/components/home-pages/Products.vue';
 import RoomsInspiration from '@/components/home-pages/RoomsInspiration.vue';
+import ShareYourSetup from '@/components/home-pages/ShareYourSetup.vue';
 </script>
 
 <template>
@@ -10,4 +11,5 @@ import RoomsInspiration from '@/components/home-pages/RoomsInspiration.vue';
   <BrowseTheRange />
   <Products />
   <RoomsInspiration/>
+  <ShareYourSetup />
 </template>
