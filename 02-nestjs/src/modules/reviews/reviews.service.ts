@@ -51,35 +51,37 @@ export class ReviewsService {
     return newReview.save();
   }
 
-  // Find all reviews
-  async findAll(query: string, current = 1, pageSize = 10) {
-    const { filter, limit, sort } = aqp(query);
+  // Find all reviews with optional search by rating or comment
+async findAll(query: string, current = 1, pageSize = 10) {
+  const { filter, sort } = aqp(query);
 
-    // Enable searching by rating or comment fields
-    if (filter.query) {
-      filter.$or = [
-        { rating: parseInt(filter.query) }, // Attempts to match exact rating number if query is a number
-        { comment: { $regex: `.*${filter.query}.*`, $options: 'i' } }, // Matches comments containing the query string
-      ];
-      delete filter.query; // Remove query after it's processed
-    }
+  // Check if filter.query is numeric for rating, otherwise search by comment
+  if (filter.query) {
+    const queryValue = Number(filter.query);
+    filter.$or = [
+      !isNaN(queryValue) ? { rating: queryValue } : {}, // Only use rating if query is a number
+      { comment: { $regex: `.*${filter.query}.*`, $options: 'i' } }, // Matches comments containing the query string
+    ].filter(condition => Object.keys(condition).length > 0); // Remove empty objects if query is not numeric
 
-    // Remove pagination parameters if they exist
-    if (filter.current) delete filter.current;
-    if (filter.pageSize) delete filter.pageSize;
-
-    const totalItems = await this.reviewModel.find(filter).countDocuments();
-    const totalPages = Math.ceil(totalItems / pageSize);
-
-    const skip = (current - 1) * pageSize;
-    const results = await this.reviewModel
-      .find(filter)
-      .limit(pageSize)
-      .skip(skip)
-      .sort(sort as any);
-
-    return { results, totalItems, totalPages };
+    delete filter.query; // Remove query after it's processed
   }
+
+  // Remove pagination parameters if they exist
+  if (filter.current) delete filter.current;
+  if (filter.pageSize) delete filter.pageSize;
+
+  const totalItems = await this.reviewModel.find(filter).countDocuments();
+  const totalPages = Math.ceil(totalItems / pageSize);
+
+  const skip = (current - 1) * pageSize;
+  const results = await this.reviewModel
+    .find(filter)
+    .limit(pageSize)
+    .skip(skip)
+    .sort(sort as any);
+
+  return { results, totalItems, totalPages };
+}
 
   // Find one review by ID
   async findOne(id: string): Promise<Review> {

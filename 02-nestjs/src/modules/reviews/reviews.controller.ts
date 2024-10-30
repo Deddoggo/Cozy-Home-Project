@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
@@ -15,10 +24,10 @@ export class ReviewsController {
   @Get()
   async findAll(
     @Query() query: string,
-    @Query("current") current: string,
-    @Query("pageSize") pageSize: string,
+    @Query('current') current: string,
+    @Query('pageSize') pageSize: string,
   ) {
-    return await this.reviewsService.findAll(query, +current, +pageSize);;
+    return await this.reviewsService.findAll(query, +current, +pageSize);
   }
 
   @Get(':id')
@@ -27,7 +36,10 @@ export class ReviewsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateReviewDto: UpdateReviewDto,
+  ) {
     return await this.reviewsService.update(id, updateReviewDto);
   }
 
