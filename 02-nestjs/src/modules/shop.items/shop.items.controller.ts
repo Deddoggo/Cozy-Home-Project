@@ -23,12 +23,12 @@ export class ShopItemsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.shopItemsService.findOne(+id);
+    return await this.shopItemsService.findOne(id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateShopItemDto: UpdateShopItemDto) {
-    return await this.shopItemsService.update(+id, updateShopItemDto);
+    return await this.shopItemsService.update(id, updateShopItemDto);
   }
 
 @Delete(':id')

@@ -6,25 +6,20 @@ export type BlogDocument = HydratedDocument<Blog>;
 
 @Schema({ timestamps: true })
 export class Blog {
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name, required: true })
+    user: mongoose.Schema.Types.ObjectId;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
-  user: mongoose.Schema.Types.ObjectId;
-
-    @Prop()
+    @Prop({ required: true })
     title: string;
 
-    @Prop()
+    @Prop({ required: true })
     content: string;
 
-    @Prop()
-    image: string;
+    @Prop({ required: false }) // Optional field
+    image?: string;
 
-    @Prop()
-    category: string;
-
-    @Prop()
-    tags: string[];
-
+    @Prop({ required: false })
+    tags?: string;
 }
 
 export const BlogSchema = SchemaFactory.createForClass(Blog);
