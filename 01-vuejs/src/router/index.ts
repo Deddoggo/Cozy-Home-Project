@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import ShopView from "../views/ShopView.vue";
+import HomeView from "@/views/HomeView.vue";
+import ShopView from "@/views/ShopView.vue";
 import ContactView from "@/views/ContactView.vue";
 import SingleItemView from "@/views/SingleItemView.vue";
 
@@ -23,7 +23,7 @@ const router = createRouter({
       component: ContactView,
     },
     {
-      path: "/item/_id",
+      path: "/item/:id",
       name: "item",
       component: SingleItemView,
     }

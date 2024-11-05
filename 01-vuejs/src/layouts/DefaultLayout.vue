@@ -4,6 +4,6 @@
   <FooterLayout></FooterLayout>
 </template>
 <script lang="ts" setup>
-import HeaderLayout from "./components/HeaderLayout.vue";
-import FooterLayout from "./components/FooterLayout.vue";
+import HeaderLayout from "@/layouts/components/HeaderLayout.vue";
+import FooterLayout from "@/layouts/components/FooterLayout.vue";
 </script>

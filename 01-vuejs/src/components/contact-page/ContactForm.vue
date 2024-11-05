@@ -14,6 +14,6 @@
 </template>
 
 <script setup>
-  import OurInfos from './OurInfos.vue';
-  import YourInfos from './YourInfos.vue';
+  import OurInfos from '@/components/contact-page/OurInfos.vue';
+  import YourInfos from '@/components/contact-page/YourInfos.vue';
 </script>

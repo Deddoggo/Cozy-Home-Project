@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import myImage from "@/assets/images/banner.jpg";
-import NewArrival from "./NewArrival.vue";
+import NewArrival from "@/components/home-pages/NewArrival.vue";
 import { computed, ref } from "vue";
 
 const backGroundBannerStyles = computed(() => ({

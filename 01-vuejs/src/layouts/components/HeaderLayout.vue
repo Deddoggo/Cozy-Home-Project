@@ -1,119 +1,97 @@
 <template>
-  <header
-    class="ease-linear transition-colors duration-400 bg-white w-full z-20 sticky top-0"
-  >
-    <div
-      class="flex justify-between items-center px-[30px] h-[60px] md:h-[100px]"
-    >
-      <FurniroLogo
-        class="w-[100px] md:w-[140px]"
-        @click="redirectTo(ROUTERS.HOME)"
-      />
+  <header class="ease-linear transition-colors duration-400 bg-white w-full z-20 sticky top-0">
+    <div class="flex justify-between items-center px-[30px] h-[60px] md:h-[100px]">
+      <!-- Logo -->
+      <FurniroLogo class="w-[100px] md:w-[140px]" @click="redirectTo(ROUTERS.HOME)" />
+
+      <!-- Hamburger Menu for Mobile -->
+      <button 
+        @click="toggleDrawer" 
+        class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
+      >
+        <Icon icon="mdi:menu" class="text-[24px]" />
+      </button>
+
+      <!-- Navigation Menu -->
       <nav class="hidden md:flex space-x-[30px] lg:space-x-[60px]">
         <a
           v-for="menu in HEADERS_MENU"
+          :key="menu.title"
           :href="menu.router"
           class="text-[16px] font-semibold text-black hover:text-primary"
           :class="{ 'text-primary': activeRoute(menu.router) }"
-          :key="menu.title"
         >
           {{ menu.title }}
         </a>
       </nav>
+
+      <!-- Header Icons -->
       <div class="hidden md:flex items-center space-x-[30px] lg:space-x-[60px]">
         <a
           v-for="icon in HEADERS_ICON"
+          :key="icon.icon"
           :href="icon.router"
           class="text-gray-700 hover:text-gray-900"
-          :key="icon.icon"
+          @click.prevent="toggleCartPopUp(icon.title)"
         >
-          <Icon
-            class="text-back text-[20px] lg:text-[28px]"
-            :icon="icon.icon"
-          />
+          <Icon class="text-back text-[20px] lg:text-[28px]" :icon="icon.icon" />
         </a>
       </div>
-      <button
-        class="md:hidden rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-        @click="toggleDrawer"
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div v-if="showDrawer" class="md:hidden bg-white shadow-lg absolute top-[60px] left-0 right-0 px-[30px] py-[20px] space-y-4">
+      <a
+        v-for="menu in HEADERS_MENU"
+        :key="menu.title"
+        :href="menu.router"
+        class="block text-[16px] font-semibold text-black hover:text-primary"
+        :class="{ 'text-primary': activeRoute(menu.router) }"
       >
-        <Icon class="text-back text-[20px]" icon="mdi:menu" />
-      </button>
-      <div
-        class="fixed z-20 lg:hidden w-full top-0 left-0 xl:w-auto xl:right-0 xl:left-auto h-full"
-        :class="showDrawer ? '' : 'hidden'"
-      >
-        <div class="relative bg-white w-full h-full">
-          <div class="flex justify-between items-center px-[30px] h-[60px]">
-            <FurniroLogo class="w-[100px] md:w-[140px]" />
-            <button
-              class="md:hidden rounded-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              @click="toggleDrawer"
-            >
-              <Icon class="text-back text-[20px]" icon="mdi:close" />
-            </button>
-          </div>
-          <div class="overflow-hidden px-3 py-6">
-            <div
-              v-for="menu in HEADERS_MENU"
-              class="w-full flex flex-col gap-2"
-              :class="{ 'bg-secondary': activeRoute(menu.router) }"
-              :key="menu.title"
-              @click="redirectTo(menu.router)"
-            >
-              <button
-                class="py-2 px-3 w-full font-inter text-label-small text-neutral-900 rounded hover:bg-neutral-100 focus:bg-neutral-100 flex justify-start items-center"
-              >
-                <span class="mr-0.5">{{ menu.title }}</span>
-              </button>
-            </div>
-          </div>
-          <div class="h-full bg-background">
-            <div class="flex items-center justify-between pt-5 w-1/2 m-auto">
-              <a
-                v-for="icon in HEADERS_ICON"
-                :href="icon.router"
-                class="text-gray-700 hover:text-gray-900"
-                :key="icon.icon"
-              >
-                <Icon
-                  class="text-back text-[20px] lg:text-[28px]"
-                  :icon="icon.icon"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
+        {{ menu.title }}
+      </a>
+      <div class="flex items-center space-x-[20px]">
+        <a
+          v-for="icon in HEADERS_ICON"
+          :key="icon.icon"
+          :href="icon.router"
+          class="text-gray-700 hover:text-gray-900"
+          @click.prevent="toggleCartPopUp(icon.title)"
+        >
+          <Icon class="text-back text-[20px]" :icon="icon.icon" />
+        </a>
       </div>
     </div>
   </header>
+
+  <!-- Cart PopUp -->
+  <CartPopUp v-if="showCartPopUp" @close="toggleCartPopUp('Stores')" />
 </template>
 
 <script lang="ts" setup>
 import FurniroLogo from "@/components/common/FurniroLogo.vue";
+import CartPopUp from "@/components/CartPopUp.vue";
 import { Icon } from "@iconify/vue";
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useAppStore } from "@/stores/appStore";
 import { useRoute, useRouter } from "vue-router";
 import { HEADERS_MENU, HEADERS_ICON } from "@/shares/config/header";
 import { ROUTERS } from "@/shares/config/router";
 
 const appStore = useAppStore();
-
-const showDrawer = computed(() => appStore.isShowDrawer);
-
+const showDrawer = ref(false); // State for mobile drawer
+const showCartPopUp = ref(false);
 const router = useRouter();
 const route = useRoute();
 
-const activeRoute = (url: string) => {
-  return route.path === url;
-};
+const activeRoute = (url: string) => route.path === url;
+const toggleDrawer = () => showDrawer.value = !showDrawer.value; // Toggle drawer
+const redirectTo = (url: string) => router.push(url);
 
-const toggleDrawer = () => {
-  appStore.toggleDrawer();
-};
-
-const redirectTo = (url: string) => {
-  router.push(url);
+// Toggle CartPopUp visibility only when clicking the "Stores" icon
+const toggleCartPopUp = (iconTitle: string) => {
+  if (iconTitle === "Stores") {
+    showCartPopUp.value = !showCartPopUp.value;
+  }
 };
 </script>
