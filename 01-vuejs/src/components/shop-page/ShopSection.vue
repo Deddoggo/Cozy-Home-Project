@@ -1,44 +1,59 @@
 <template>
-  <div class="container mx-auto my-10">
+  <div id="ShopSection" class="">
     <!-- Filter Bar Section -->
-    <div class="flex justify-between items-center mb-4">
-      <div class="flex items-center space-x-4">
-        <img src="https://www.furniro.tech/assets/filter-icon-ae3ca08c.svg" alt="Filter Icon" />
-        <button @click="toggleFilterVisibility" class="bg-primary text-white py-2 px-4 rounded">
-          Filter
-        </button>
-        <img src="https://www.furniro.tech/assets/grid-icon-4010b7aa.svg" alt="Grid View Icon" />
-        <img src="https://www.furniro.tech/assets/view-list-icon-dacb7c6e.svg" alt="List View Icon" />
-      </div>
-
-      <p class="text-gray-600">
-        Showing {{ startResult }}-{{ endResult }} of {{ totalProducts || 0 }} results
-      </p>
-
-      <div class="flex items-center space-x-4">
-        <label for="itemsPerPage" class="text-gray-700">Show</label>
-        <select
-          id="itemsPerPage"
-          v-model="itemsPerPage"
-          @change="changeItemsPerPage"
-          class="border border-gray-300 px-2 py-1 rounded"
-        >
-          <option value="8">8</option>
-          <option value="16">16</option>
-          <option value="32">32</option>
-        </select>
-
-        <label for="sortBy" class="text-gray-700">Sort by</label>
-        <select
-          id="sortBy"
-          v-model="sortOption"
-          @change="fetchProducts"
-          class="border border-gray-300 px-2 py-1 rounded"
-        >
-          <option value="default">Default</option>
-          <option value="basePrice">Price: Low to High</option>
-          <option value="-basePrice">Price: High to Low</option>
-        </select>
+    <div id="SectionTop" class="bg-secondary py-8">
+      <div id="Container" class="px-5">
+        <div id="ComponentsSection" class="flex-wrap -mx-3 flex justify-center items-center  lg:flex lg:justify-center lg:items-center">
+          <div id="FilterSection" class="flex gap-6 items-center flex-wrap lg:mb-0 lg:content-start lg:flex-grow-0 lg:flex-shrink-0 lg:w-1/2 pl-5">
+            <div id="FilterButton" @click="toggleFilterVisibility" class="gap-4 items-center flex">
+              <button class="bg-primary text-white py-2 px-4 rounded filter-button flex place-items-center font-medium ">
+                <img src="https://www.furniro.tech/assets/filter-icon-ae3ca08c.svg" alt="Filter Icon" class="cursor-pointer align-middle" />
+                Filter
+              </button>
+            </div>
+            <div id="GridButton" class="cursor-pointer">
+                <img src="https://www.furniro.tech/assets/grid-icon-4010b7aa.svg" alt="Grid Icon" class="align-middle" />
+            </div>
+            <div id="LayoutButton" class="cursor-pointer">
+              <img src="https://www.furniro.tech/assets/view-list-icon-dacb7c6e.svg" alt="Layout Icon" class="align-middle" />
+            </div>
+            <div id="ProductCount" class="border-l-2 border-solid pl-9">
+              Showing {{ startResult }}-{{ endResult }} of {{ totalProducts || 0 }} results
+            </div>
+          </div>
+          <div id="ShowSection" class="gap-9 lg:justify-end items-center flex-wrap flex lg:w-1/2 lg:flex-shrink-0 lg:flex-grow-0 pr-5">
+            <div id="ShowWrapper" class="">
+              <form id="ShowForm" class="gap-4 flex items-center space-x-1">
+                <label for="itemsPerPage" class="text-gray-700">Show</label>
+                <select
+                  id="itemsPerPage"
+                  v-model="itemsPerPage"
+                  @change="changeItemsPerPage"
+                  class="border border-gray-300 px-2 py-1 rounded"
+                >
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                </select>
+              </form>
+            </div>
+            <div id="SortWrapper" class="flex items">
+              <form class="gap-4 flex items-center space-x-1">
+                <label for="sortBy" class="text-gray-700">Sort by</label>
+                <select
+                  id="sortBy"
+                  v-model="sortOption"
+                  @change="fetchProducts"
+                  class="border border-gray-300 px-2 py-1 rounded"
+                >
+                  <option value="default">Default</option>
+                  <option value="basePrice">Price: Low to High</option>
+                  <option value="-basePrice">Price: High to Low</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -55,7 +70,7 @@
     <div v-if="isLoading" class="text-center">Loading products...</div>
 
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
         <div
           v-for="product in visibleProducts"
           :key="product._id"
@@ -72,7 +87,7 @@
         </div>
       </div>
 
-      <div class="mt-6 flex justify-center items-center space-x-2">
+      <div class="my-6 flex justify-center items-center space-x-2">
         <button
           v-for="page in totalPages"
           :key="page"
@@ -88,6 +103,46 @@
       </div>
     </div>
   </div>
+  <div id="Features" class=" bg-secondary py-20 px-0 w-full box-border m-0 block">
+    <div id="FeaturesContainer" class="w-[90%] mx-auto grid gap-5 p-0 box-border sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div id="Item1" class="items-center gap-4 flex lg:mb-0">
+            <div class="m-0 p-0 box-border block">
+              <img src="@/assets/icons/trophy 1.svg" alt="Furniro">
+            </div>
+            <div id="Content Wrapper" class="m-0 p-0 box-border block">
+                <h3 class="text-black text-2xl font-semibold h-9"> High Quality </h3>
+                <span class="text-gray text-xl font-medium h-8">crafted from top materials</span>
+            </div>
+        </div>
+        <div id="Item2" class="items-center gap-4 flex lg:mb-0">
+            <div class="m-0 p-0 box-border block">
+              <img src="@/assets/icons/guarantee.svg" alt="Furniro">
+            </div>
+            <div id="Content Wrapper" class="m-0 p-0 box-border block">
+                <h3 class="text-black text-2xl font-semibold h-9 m-0"> 2-Year Guarantee </h3>
+                <span class="text-gray text-xl font-medium h-8">Over 2 years</span>
+            </div>
+        </div>
+        <div id="Item3" class="items-center gap-4 flex lg:mb-0">
+            <div class="m-0 p-0 box-border block">
+              <img src="@/assets/icons/shipping.svg" alt="Furniro">
+            </div>
+            <div id="Content Wrapper" class="m-0 p-0 box-border block">
+                <h3 class="text-black text-2xl font-semibold h-9 m-0"> Free Shipping </h3>
+                <span class="text-gray text-xl font-medium h-8">On orders over $150</span>
+            </div>
+        </div>
+        <div id="Item4" class="items-center gap-4 flex lg:mb-0">
+            <div class="m-0 p-0 box-border block">
+              <img src="@/assets/icons/customer-support.svg" alt="Furniro">
+            </div>
+            <div id="Content Wrapper" class="m-0 p-0 box-border block">
+                <h3 class="text-black text-2xl font-semibold h-9 m-0"> Customer Support </h3>
+                <span class="text-gray text-xl font-medium h-8">Dedicated support</span>
+            </div>
+        </div>
+    </div>
+</div>
 </template>
 
 <script setup lang="ts">

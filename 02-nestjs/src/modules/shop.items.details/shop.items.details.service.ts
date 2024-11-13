@@ -80,6 +80,15 @@ export class ShopItemsDetailsService {
     return shopItemDetail;
   }
 
+  async findByShopItem(shopItemId: string): Promise<ShopItemDetail[]> {
+    if (!mongoose.Types.ObjectId.isValid(shopItemId)) {
+      throw new BadRequestException(`Invalid shop item ID format`);
+    }
+
+    const shopItemDetails = await this.shopItemsDetailModel.find({ shopItem: shopItemId }).exec();
+    return shopItemDetails;
+  }
+
   // Update a shop item detail by ID
   async update(id: string, updateShopItemsDetailDto: UpdateShopItemsDetailDto): Promise<ShopItemDetail> {
     if (updateShopItemsDetailDto.shopItem && !(await this.isValidShopItemId(updateShopItemsDetailDto.shopItem))) {

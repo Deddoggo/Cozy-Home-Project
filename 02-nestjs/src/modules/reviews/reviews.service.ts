@@ -83,6 +83,15 @@ async findAll(query: string, current = 1, pageSize = 10) {
   return { results, totalItems, totalPages };
 }
 
+async findByShopItem(shopItemId: string): Promise<Review[]> {
+  if (!mongoose.Types.ObjectId.isValid(shopItemId)) {
+    throw new BadRequestException(`Invalid shop item ID format`);
+  }
+
+  const reviews = await this.reviewModel.find({ shopItem: shopItemId }).exec();
+  return reviews;
+}
+
   // Find one review by ID
   async findOne(id: string): Promise<Review> {
     if (!mongoose.Types.ObjectId.isValid(id)) {

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import type { ShopItem } from "../../services/shopItems/types";
+import type { ShopItem } from "@/services/shopItems/types";
 
 export const useShopItemStore = defineStore("shopItemStore", () => {
 

@@ -8,8 +8,8 @@ export class ShopItemsDetailsController {
   constructor(private readonly shopItemsDetailsService: ShopItemsDetailsService) {}
 
   @Post()
-  create(@Body() createShopItemsDetailDto: CreateShopItemsDetailDto) {
-    return this.shopItemsDetailsService.create(createShopItemsDetailDto);
+  async create(@Body() createShopItemsDetailDto: CreateShopItemsDetailDto) {
+    return await this.shopItemsDetailsService.create(createShopItemsDetailDto);
   }
 
   @Get()
@@ -22,17 +22,22 @@ export class ShopItemsDetailsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shopItemsDetailsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.shopItemsDetailsService.findOne(id);
+  }
+
+  @Get('shop-item/:shopItemId')
+  async findByShopItem(@Param('shopItemId') shopItemId: string) {
+    return await this.shopItemsDetailsService.findByShopItem(shopItemId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateShopItemsDetailDto: UpdateShopItemsDetailDto) {
-    return this.shopItemsDetailsService.update(id, updateShopItemsDetailDto);
+  async update(@Param('id') id: string, @Body() updateShopItemsDetailDto: UpdateShopItemsDetailDto) {
+    return await this.shopItemsDetailsService.update(id, updateShopItemsDetailDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.shopItemsDetailsService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.shopItemsDetailsService.remove(id);
   }
 }

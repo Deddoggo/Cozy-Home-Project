@@ -1,51 +1,79 @@
 <template>
-  <div class="relative w-full h-[670px] text-left font-poppins bg-[#fcf8f3] overflow-hidden">
-    <div class="mx-auto w-[1440px] relative h-full">
-      
-      <div class="absolute top-[44px] left-[564px] w-[1196px] h-[582px] flex space-x-4">
-        <div class="relative w-[404px] h-[582px]">
-          <img class="w-full h-full object-cover" alt="Room" src="@/assets/images/Rectangle 24.png" />
-          <div class="absolute bottom-4 right-8 w-12 h-12 bg-[#b88e2f] rounded-full flex items-center justify-center">
-            <img class="w-6 h-6 " alt="Next" src="@/assets/images/Right 16px.svg" />
-          </div>
-          <div class="absolute bottom-0 left-6 w-[217px] h-[130px] bg-white bg-opacity-80 backdrop-blur-sm p-4 rounded-lg">
-            <div class="flex items-center space-x-2 mb-2">
-              <span class="text-lg font-medium">01</span>
-              <img class="w-6 h-6" alt="Icon" src="@/assets/images/Vector 1.svg" />
-              <span class="text-lg font-medium">Bed Room</span>
-            </div>
-            <div class="text-2xl font-semibold text-gray-800">Inner Peace</div>
+  <div class="relative w-full h-[670px] box-border m-0 bg-[#fcf8f3] py-11 overflow-hidden">
+    <div class="grid grid-cols-12 box-border m-0 p-0">
+      <div class="col-span-12 grid grid-cols-12 items-center">
+        <div id="slider-col" class="col-span-5 max-[1200px]:col-span-12 max-[1200px]:mb-12 max-[1200px]:text-center">
+          <div class="pl-24 max-[1200px]:pl-0">
+            <h2 class="text-zinc-600 font-bold text-5xl mt-0 mb-2 max-[1200px]:text-4xl max-[596px]:text-2xl">
+              50+ Beautiful rooms inspiration
+            </h2>
+            <p class="text-base font-medium mb-6 max-[655px]:text-sm max-[576px]:mb-2">
+              Our designer already made a lot of beautiful prototype of rooms that inspire you
+            </p>
+            <button
+              class="bg-primary text-white px-3 md:px-1 py-3 md:py-3 uppercase font-semibold border-2 border-primary transition duration-500 ease-in-out hover:bg-white hover:text-primary"
+            >
+              <a href="/" class="px-4 py-2 text-base max-[992px]:py-2 max-[992px]:px-7">Explore More</a>
+            </button>
           </div>
         </div>
-
-        <img class="w-[372px] h-[486px] object-cover" alt="Room" src="@/assets/images/Rectangle 25.png" />
-
-        <img class="w-[372px] h-[486px] object-cover overflow-hidden" alt="Room" src="@/assets/images/Rectangle 26.png" />
-      </div>
-
-      <div class="absolute bottom-4 ml-28 left-[428px] flex space-x-5">
-        <img class="w-6 h-6" alt="Active" src="@/assets/images/Active.svg" />
-        <img class="w-3 h-3 mt-1" src="@/assets/images/Ellipse 1.svg"></img>
-        <img class="w-3 h-3 mt-1" src="@/assets/images/Ellipse 1.svg"></img>
-        <img class="w-3 h-3 mt-1" src="@/assets/images/Ellipse 1.svg"></img>
-      </div>
-
-      <div class="absolute top-[399px] left-[100px] flex items-center justify-center bg-[#b88e2f] text-white w-[176px] h-12 rounded-full">
-        <button class="text-center font-semibold">Explore More</button>
-      </div>
-
-      <div class="absolute top-[223px] left-[100px]">
-        <h1 class="text-4xl font-bold text-gray-800 leading-tight">
-          50+ Beautiful rooms <br />
-          inspiration
-        </h1>
-        <p class="text-lg font-medium text-gray-500 mt-3">
-          Our designer already made a lot of beautiful <br /> prototypes of rooms that inspire you
-        </p>
+        <div id="slider-col" class="col-span-7 m-0 p-0 box-border max-[1200px]:col-span-12">
+          <swiper
+            :slides-per-view="3"
+            :space-between="20"
+            loop
+            autoplay
+            @slideChange="onSlideChange"
+            class="swiper-container"
+          >
+            <swiper-slide v-for="(slide, index) in slides" :key="index">
+              <img src="../../assets/images/Rectangle 24.png" alt="Furniro" />
+              <div v-if="index === activeIndex" class="absolute block bottom-5 left-7 z-[4] cursor-pointer m-0 p-0">
+                <div class="flex items-end m-0 p-0">
+                  <div class="bg-white py-5 px-3 flex flex-col items-start gap-3 m-0">
+                    <div>
+                      <div class="flex items-center">
+                        <span class="text-gray font-medium relative text-base">01 -</span>
+                        <span class="text-gray font-medium relative text-base"> Bed Room</span>
+                      </div>
+                      <h3 class="text-black font-semibold text-3xl">Inner Peace</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/swiper-bundle.css';
+import { ref } from 'vue';
+
+const activeIndex = ref(0);
+
+function onSlideChange(swiper) {
+  activeIndex.value = swiper.realIndex;
+}
+
+// Mock slide data
+const slides = Array.from({ length: 6 }, (_, index) => ({
+  id: index + 1,
+  title: 'Inner Peace',
+  subtitle: '01 - Bed Room',
+}));
 </script>
+
+<style scoped>
+.swiper-slide img {
+  height: 486px;
+}
+
+.swiper-slide-active img {
+  height: 580px;
+}
+</style>

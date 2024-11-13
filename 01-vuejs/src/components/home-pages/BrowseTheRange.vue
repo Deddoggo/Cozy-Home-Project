@@ -5,10 +5,12 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </p>
 
+    <!-- Display loading text while fetching categories -->
     <div v-if="isLoading" class="text-center">
       Loading categories...
     </div>
 
+    <!-- Swiper to display categories after loading -->
     <swiper 
       v-if="!isLoading" 
       :slides-per-view="3" 
@@ -34,32 +36,48 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
+import { CategoriesService } from '@/services/categories';
+import type { Category } from '@/services/categories/types';
 
-interface Category {
-  _id: string;
-  title: string;
-  description: string;
-  image: string;
-}
-
+// Refs for category data and loading status
 const categories = ref<Category[]>([]);
 const isLoading = ref(true);
 
+// Service instance for fetching categories
+const categoriesService = new CategoriesService();
 const fetchCategories = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/categories`);
-    categories.value = response.data;
+    const { data, status } = await categoriesService.getCategories();
+    console.log("API Status:", status);
+    console.log("API Data:", data);
+
+    // Kiểm tra nếu data trả về là một mảng (dùng cho categories)
+    if (status === 200 && Array.isArray(data)) {
+      categories.value = data;
+    } else {
+      console.error("API response is not as expected:", data);
+    }
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error("Error fetching categories:", error);
   } finally {
     isLoading.value = false;
   }
 };
 
+// Fetch categories on component mount
 onMounted(() => {
   fetchCategories();
 });
 </script>
+
+<style scoped>
+.category-card {
+  transition: transform 0.3s;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+</style>

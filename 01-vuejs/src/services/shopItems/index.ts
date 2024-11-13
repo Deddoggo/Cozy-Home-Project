@@ -1,11 +1,11 @@
 // the axios instance and types
-import http from "../api";
-import type { APIResponse } from "../types";
-import type { InputCreateItem, InputUpdateItem, ShopItem } from "./types";
+import http from "@/services/api";
+import type { APIResponse } from "@/services/types";
+import type { InputCreateItem, InputUpdateItem, ShopItem } from "@/services/shopItems/types";
 
 export class ShopItemsService {
   async getShopItems() {
-    return await http.get<ShopItem[]>("shop-items");
+    return await http.get<APIResponse<ShopItem[]>>("shop-items");
   }
   
   async deleteShopItem(id: number) {
@@ -18,5 +18,9 @@ export class ShopItemsService {
   
   async updateShopItem(input: InputUpdateItem) {
     return await http.put<APIResponse<boolean>>("shop-items", input);
+  }
+
+  async getShopItem(id: string) {
+    return await http.get<ShopItem>(`shop-items/${id}`);
   }
 }

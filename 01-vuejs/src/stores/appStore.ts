@@ -4,13 +4,13 @@ import type {
   InputCreateCategory,
   InputUpdateCategory,
   Category,
-} from "../services/categories/types";
+} from "@/services/categories/types";
 import type {
   InputCreateItem,
   InputUpdateItem,
   ShopItem,
-} from "../services/shopItems/types";
-
+} from "@/services/shopItems/types";
+import type { InputCreateItemDetail, InputUpdateItemDetail, ShopItemDetail } from "@/services/shopItemDetails/types";
 import type { APIResponse } from "../services/types";
 import { AxiosError } from "axios";
 import type { Input } from "postcss";
@@ -52,6 +52,7 @@ export const useCategoryStore = defineStore("categoryStore", () => {
     categories,
     initCategories,
     removeCategory,
+    addNewCategory,
   };
 });
 
@@ -76,5 +77,32 @@ export const useShopItemStore = defineStore("shopItemStore", () => {
     shopItems,
     initShopItems,
     removeShopItem,
+    addNewShopItem,
+  };
+
+});
+
+export const useShopItemDetailStore = defineStore("shopItemDetailStore", () => {
+  const shopItemDetails = ref<ShopItemDetail[]>([]);
+
+  function initShopItemDetails(data: ShopItemDetail[]) {
+    shopItemDetails.value = data;
+  }
+
+  function addNewShopItemDetail(shopItemDetail: ShopItemDetail) {
+    shopItemDetails.value.push(shopItemDetail);
+  }
+
+  function removeShopItemDetails(id: string) {
+    const idx = shopItemDetails.value.findIndex(s => s._id === id);
+    if (idx === -1) return;
+    shopItemDetails.value.splice(idx, 1);
+  }
+
+  return {
+    shopItemDetails,
+    initShopItemDetails,
+    removeShopItemDetails,
+    addNewShopItemDetail,
   };
 });
